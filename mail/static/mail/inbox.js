@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function compose_email() {
 
   // Show compose view and hide other views
-  document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#emails-view').style.display = 'none'
   document.querySelector('#compose-view').style.display = 'block';
 
   // Clear out composition fields
@@ -32,6 +32,44 @@ function load_mailbox(mailbox) {
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+
+  // Fetch emails 
+  fetch(`/emails/${mailbox}`)
+    .then(response => response.json())
+    .then(emails => {
+        emails.forEach(email => {
+            const email_div = document.createElement('div');
+            email_div.className = 'email-item';
+            email_div.style.border = '1px solid #ccc';
+            email_div.style.padding = '10px';
+            email_div.style.margin = '5px 0';
+            email_div.style.cursor = 'pointer';
+            email_div.style.backgroundColor = email.read ? '#e9ecef' : 'white';
+
+            // The content of email
+            // Sender
+            const sender_span = document.createElement('span');
+            sender_span.style.fontWeight = 'bold';
+            sender_span.textContent = email.sender;
+
+            // Subject
+            const subject_span = document.createElement('span');
+            subject_span.style.marginLeft = '10px';
+            subject_span.textContent = email.subject;
+
+            // Time stamp
+            const timestamp_span = document.createElement('span');
+            timestamp_span.style.float = 'right';
+            timestamp_span.textContent = email.timestamp;
+
+            email_div.appendChild(sender_span);
+            email_div.appendChild(subject_span);
+            email_div.appendChild(timestamp_span);
+
+
+            document.querySelector('#emails-view').appendChild(email_div);
+        });
+    });
 }
 
 function send_email(event) {
