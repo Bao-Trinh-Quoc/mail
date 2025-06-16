@@ -42,14 +42,13 @@ function send_email(event) {
   const recipients =  document.querySelector('#compose-recipients').value;
   const subject = document.querySelector('#compose-subject').value;
   const body = document.querySelector('#compose-body').value;
-  console.log(body);
 
   fetch('/emails', {
     method: 'POST',
     body: JSON.stringify({
         recipients: recipients,
         subject: subject,
-        body: 'How about we meet tomorrow at 3pm?'
+        body: body
     })
   })
   .then(response => response.json())

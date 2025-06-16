@@ -1,0 +1,6 @@
+12/06/2025
+11:05 AM
+The bug is in when you send email but the body is {}.
+
+foo@email.com
+bar@gmail.com
