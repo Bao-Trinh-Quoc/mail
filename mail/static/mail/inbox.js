@@ -1,3 +1,5 @@
+let current_mailbox = 'inbox';
+
 document.addEventListener('DOMContentLoaded', function() {
   // Use buttons to toggle between views
   document.querySelector('#inbox').addEventListener('click', () => load_mailbox('inbox'));
@@ -25,7 +27,7 @@ function compose_email() {
 }
 
 function load_mailbox(mailbox) {
-  
+  current_mailbox = mailbox;
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
@@ -147,6 +149,37 @@ function view_email(email_id) {
       const body_div = document.createElement('div');
       body_div.textContent = email.body;
       email_view.appendChild(body_div);
+
+      // Archive/Unarchive button logic
+      if (current_mailbox !== 'sent') {
+        const button = document.createElement('button');
+        button.className = 'btn btn-sm btn-outline-primary mt-2';
+
+        if (email.archived) {
+          // Show Unarchive button
+          button.textContent = 'Unarchive';
+          button.onclick = function() {
+            fetch(`/emails/${email.id}`, {
+              method: 'PUT',
+              body: JSON.stringify({ archived: false })
+            })
+            .then(() => load_mailbox('inbox'));
+          };
+        } else {
+          // Show archive button
+          button.textContent = 'Archive';
+          button.onclick = function() {
+            fetch(`/emails/${email.id}`, {
+              method: 'PUT',
+              body: JSON.stringify({ archived: true })
+            })
+            .then(() => load_mailbox('inbox'));
+          };
+        }
+
+        email_view.appendChild(document.createElement('hr'));
+        email_view.appendChild(button);
+      }
     });
 
 }
