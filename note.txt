@@ -4,3 +4,16 @@ The bug is in when you send email but the body is {}.
 
 foo@email.com
 bar@gmail.com
+
+7:30AM
+20/6
+the bug is when you click the email, it doesn't show anything.
+
+
+24/6
+8:31pm
+
+wtfff 
+It sounds like your browser is caching the 
+JavaScript file, so changes you make aren't reflected when you reload the page. 
+so it's jsut a dumb bug manananana. justr ctrl + f5 ICANT

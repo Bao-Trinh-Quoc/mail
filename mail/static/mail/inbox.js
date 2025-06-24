@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-  console.log("Hello world");
   // Use buttons to toggle between views
   document.querySelector('#inbox').addEventListener('click', () => load_mailbox('inbox'));
   document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
@@ -69,7 +68,7 @@ function load_mailbox(mailbox) {
             email_div.appendChild(subject_span);
             email_div.appendChild(timestamp_span);
             
-            // email_div.addEventListener('click', () => view_email(email.id));
+            email_div.addEventListener('click', () => view_email(email.id));
            
 
             document.querySelector('#emails-view').appendChild(email_div);
