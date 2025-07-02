@@ -20,3 +20,4 @@ so it's jsut a dumb bug manananana. justr ctrl + f5 ICANT
 
 
 3/7
+bug in logic to display reply content

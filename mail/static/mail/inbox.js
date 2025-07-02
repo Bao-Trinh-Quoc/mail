@@ -1,3 +1,5 @@
+console.log("hello wor;d");
+
 let current_mailbox = 'inbox';
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -13,12 +15,26 @@ document.addEventListener('DOMContentLoaded', function() {
   load_mailbox('inbox');
 });
 
-function compose_email() {
+function compose_email(reply_email = null) {
 
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none'
   document.querySelector('#compose-view').style.display = 'block';
   document.querySelector('#email-view').style.display = 'none';
+
+  if (reply_email) {
+    // Pre-fil the recipent 
+    document.querySelector('#compose-recipients').value = reply_email.sender;
+
+    // Add Re: if not already present
+    // const subject = reply_email.subject.startsWith('Re: ') ? reply_email.subject : `Re: ${reply_email.subject}`;
+    // document.querySelector('#compose-subject').value = subject;
+    
+    // // Pre-fill body with original email content
+    // const reply_body = `On ${reply_email.timestamp} ${reply_email.sender} wrote:\n${reply_email.body}`;
+    // document.querySelector('#compose-body').value = reply_body;
+  }
+
 
   // Clear out composition fields
   document.querySelector('#compose-recipients').value = '';
@@ -158,6 +174,10 @@ function view_email(email_id) {
       const reply_button = document.createElement('button');
       reply_button.className = 'btn btn-sm btn-outline-primary m-2';
       reply_button.textContent = 'Reply';
+      
+      reply_button.onclick = function() {
+        compose_email(email);
+      };
 
       button_container.appendChild(reply_button);
       
