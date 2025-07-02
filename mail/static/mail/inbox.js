@@ -150,10 +150,21 @@ function view_email(email_id) {
       body_div.textContent = email.body;
       email_view.appendChild(body_div);
 
+      // Button container div
+      const button_container = document.createElement('div');
+      button_container.className = 'mt-3';
+
+      // Replay button
+      const reply_button = document.createElement('button');
+      reply_button.className = 'btn btn-sm btn-outline-primary m-2';
+      reply_button.textContent = 'Reply';
+
+      button_container.appendChild(reply_button);
+      
       // Archive/Unarchive button logic
       if (current_mailbox !== 'sent') {
         const button = document.createElement('button');
-        button.className = 'btn btn-sm btn-outline-primary mt-2';
+        button.className = 'btn btn-sm btn-outline-secondary m-2';
 
         if (email.archived) {
           // Show Unarchive button
@@ -177,9 +188,11 @@ function view_email(email_id) {
           };
         }
 
-        email_view.appendChild(document.createElement('hr'));
-        email_view.appendChild(button);
+        button_container.appendChild(button);
       }
-    });
 
+      email_view.appendChild(document.createElement('hr'));
+      email_view.appendChild(button_container);
+    });
 }
+

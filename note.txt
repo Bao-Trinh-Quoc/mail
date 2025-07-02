@@ -17,3 +17,6 @@ wtfff
 It sounds like your browser is caching the 
 JavaScript file, so changes you make aren't reflected when you reload the page. 
 so it's jsut a dumb bug manananana. justr ctrl + f5 ICANT
+
+
+3/7
